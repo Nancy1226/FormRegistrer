@@ -5,36 +5,56 @@ import "../../assets/styles/Login.css";
 import Title from "../atoms/Title";
 import Text from "../atoms/Text";
 import TextPasssword from "../atoms/TextPassword";
-
+import Imagen from "../atoms/Imagen";
 
 
 function FormLogin (){
     const navigate = useNavigate();
-    const username = useRef();
-    const passsword = useRef();
-  
-    const form = useRef();
+    const endpoint = "http://34.225.239.102/api/iniciar";
+    const form = useRef()
+
   
     const handlerClick = (e)=>{
-        e.preventDefault();
-        const newForm = new FormData(form.current); // se crea un nuevo objeto llamado form y se le pasa la referencia    
-        alert(`Nombre: ${newForm.get('username')}`); //el simbolo de pesos es la variable   
-    }
+      e.preventDefault();
+      const newForm = new FormData(form.current);
+      if(newForm.get("usuario") === "" || newForm.get("contrasenia") === ""){
+            alert("Campos vacios")  
+      }else{
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            usuario: newForm.get("usuario"),
+            contrasenia: newForm.get("contrasenia"),
+          }),
+        };
+    
+        fetch(endpoint, options)
+          .then((response) => response.json())
+          .then((data) => {
+            if(data.status === true){
+              alert("Datos Correctos");
+              navigate('/registrerCar')
+            }else(
+                alert("Datos incorrectos")
+            )
+        }); 
+      }
+    };
 
     return ( 
     <>
-        <form ref={form} >
-            <Title msn={"Iniciar sesion"} />
-            
-            <Text type={"username"} nombre={"username"} />
-        
-        
-            <TextPasssword ref={passsword} />
-        
-            <Link to="/registrer" className="link">¿No tienes una cuenta? Crea una</Link>
-            
-            <button onClick={handlerClick} type="button" >Iniciar sesion</button>
-      </form>
+   
+    <form ref={form}>
+      <Imagen />
+        <Title msn={"Iniciar Sesion"} />
+        <Text label={"Username"} type={"text"} nombre={"usuario"} />
+        <TextPasssword />
+        <Link to="/registrer" className="link">¿No tienes una cuenta? Crea una</Link>
+        <button type="button" onClick={handlerClick}>Iniciar Sesion</button>
+    </form>
     </> 
     );
 }

@@ -1,10 +1,10 @@
-function Text({type, nombre}){
+function Text({label, nombre, type}){
     return(
         <>
           <div className="class-text">
                     <i className="fa-solid fa-user"></i>
-                    <label>{type}</label>
-                    <input type="text" name={nombre} />
+                    <label>{label}</label>
+                    <input  name={nombre} type={type} />
             </div>
         </>
     );

@@ -1,7 +1,7 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Registrer from "../pages/Registrer";
 import Login from "../pages/Login";
-import RegistrerMain from "../pages/RegistrerMain";
+import RegistrerCar from "../pages/RegistrerCar";
 import NotFound from "../pages/NotFound";
 
 function App(){
@@ -10,7 +10,7 @@ function App(){
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/registrer' element={<Registrer />} />
-        <Route path='/products' element={<RegistrerMain />} />
+        <Route path='/registrerCar' element={<RegistrerCar />} />
         <Route path='/*' element={<NotFound />} />
       </Routes>
     </BrowserRouter> 
